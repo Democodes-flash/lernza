@@ -120,7 +120,7 @@ export function parseCsvMilestones(csvText: string): CsvParseResult {
  */
 export function generateCsvTemplate(): string {
   return [
-    'title,description,rewardAmount',
+    "title,description,rewardAmount",
     '"Complete Environment Setup","Set up development tools and connect wallet",50',
     '"Hello Soroban","Write your first Soroban smart contract in Rust",100',
     '"Deploy to Testnet","Deploy smart contract to Stellar Testnet and execute tests",150',
