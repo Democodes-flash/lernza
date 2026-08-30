@@ -15,11 +15,13 @@ export function formatTokens(amount: number | bigint, decimals = 7, symbol = "TO
 }
 
 export function getSecondsRemaining(deadline: number, nowMs = Date.now()): number {
-  return Math.max(0, Math.floor(deadline - nowMs / 1000))
+  const nowSeconds = Math.floor(nowMs / 1000) // Convert once to whole seconds
+  return Math.max(0, deadline - nowSeconds)
 }
 
 export function isExpiredDeadline(deadline: number, nowMs = Date.now()): boolean {
-  return deadline > 0 && deadline <= nowMs / 1000
+  const nowSeconds = Math.floor(nowMs / 1000)
+  return deadline > 0 && deadline <= nowSeconds
 }
 
 export function isExpiringSoon(deadline: number, nowMs = Date.now()): boolean {
@@ -47,4 +49,3 @@ export function formatDeadlineLabel(deadline: number, nowMs = Date.now()): strin
   }
   return `Expires in ${days} day${days === 1 ? "" : "s"}`
 }
-
