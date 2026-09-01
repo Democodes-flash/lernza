@@ -7,10 +7,14 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'Cargo.toml'
+      - 'Cargo.lock'
       - 'contracts/**'
+      - 'src/**'
+      - 'benches/**'
       - 'scripts/generate-release-artifacts.sh'
       - 'releases/**'
-      - '.github/workflows/release-artifacts-check.yaml'
+      - '.github/workflows/release-artifacts-check.yml'
 
 permissions:
   contents: read
