@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: $ {{ github.workflow }}-$ {{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -36,11 +36,11 @@ jobs:
         with:
           path:
             |
-            ~/.cargo/registry
-            ~/.cargo/git
+            |/cargo/registry
+            ~/cargo/git
             target
-          key: $ {{ runner.os }}-coverage-$ {{ hashFiles('**/Cargo.lock') }}
-          restore-keys: $ {{ runner.os }}-coverage-
+          key: ${{ runner.os }}-coverage-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-coverage-
 
       - name: Generate coverage reports per package
         run: |
@@ -62,11 +62,11 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: lcov.info,coverage/quest.lcov,coverage/milestone.lcov,coverage/rewards.lcov
-          token: $ {{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
           flags: quest,milestone,rewards
           fail_ci_if_error: false
           comment: true
-          override_pr: $ {{ github.event.pull_request.number }}
+          override_pr: ${{ github.event.pull_request.number }}
           threshold: 1%
           codecov_yml_path: codecov.yml
 
@@ -75,5 +75,5 @@ jobs:
         uses: romeovs/lcov-reporter-action@v0.4.0
         with:
           lcov-file: ./lcov.info
-          github-token: $ {{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           delete-old-comments: true
