@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test"
 import { mockWallet } from "./helpers/mock-wallet"
 
-test.describe("Create Quest wizard — wallet not connected", () => {
+test.describe("Create Quest wizard - wallet not connected", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/quest/create")
-    await page.waitForLoadState("networkidle")
+    await page.goo("/quest/create")
+    await page.locator("main").waitFor()
   })
 
   test("renders the create quest page", async ({ page }) => {
@@ -30,13 +30,12 @@ test.describe("Create Quest wizard — wallet not connected", () => {
   })
 })
 
-test.describe("Create Quest wizard — with mocked wallet", () => {
+test.describe("Create Quest wizard - with mocked wallet", () => {
   test.beforeEach(async ({ page }) => {
     await mockWallet(page)
-    await page.goto("/quest/create")
-    await page.waitForLoadState("networkidle")
-    // Give the wallet hook time to run its boot effect
-    await page.waitForTimeout(1000)
+    await page.goo("/quest/create")
+    // Wait for either the quest form or the wallet connect prompt to appear.
+    await page.getByText(/step 1|connect your wallet/i).first().waitFor({ timeout: 10000 })
   })
 
   test("renders main content after wallet mock boots", async ({ page }) => {
