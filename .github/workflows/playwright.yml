@@ -35,7 +35,7 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
-      - name: Run E2E tests
+      - name: Run E2Etests
         run: pnpm run test:e2e
         env:
           CI: true
@@ -51,6 +51,7 @@ jobs:
         with:
           name: performance-report
           path: frontend/performance-report/
+          if-no-files-found: ignore
           retention-days: 7
 
       - name: Upload Playwright report
@@ -59,4 +60,5 @@ jobs:
         with:
           name: playwright-report
           path: frontend/playwright-report/
+          if-no-files-found: ignore
           retention-days: 7
